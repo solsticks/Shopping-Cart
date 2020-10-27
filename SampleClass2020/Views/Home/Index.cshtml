@@ -1,0 +1,80 @@
+﻿@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr style="background:#eee">
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.CartProducts != null)
+            {
+                @foreach (var tblItem in Model.CartProducts)
+                {
+                    <tr>
+                        <td>@tblItem.ProductName</td>
+                        <td>@tblItem.Quantity</td>
+                        <td>@tblItem.UnitPrice</td>
+                        <td>@tblItem.Price</td>
+                        <td>
+                            <form asp-action="" asp-controller="" method="post">
+                                <button class="btn btn-danger" onclick="return confirm(" Please confirm this action")">
+                                    <i class="fa fa-trash-o"></i> Delete
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            }
+            <tr style="background:#f3f3f3">
+                <td colspan="3" style="text-align:right"><strong>Total</strong></td>
+                <td style="text-align:right">@Model.GrandTotal</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div style="border-bottom:1px solid #ccc; display:block; margin:20px"><strong>Products</strong></div>
+<div class="widget-container">
+    @foreach (var item in Model.CardProducts)
+    {
+        <div class="widget">
+            <div id="imgBox">
+                <img src="@item.Photo" style="width:100%" asp-append-version="true" />
+            </div>
+            <div class="Prod-name">
+                @item.ProductName
+            </div>
+            <div class="price-btn">
+                <div class="price">$@item.Price</div>
+                <div class="qty">@item.Quantity</div>
+                <div class="btn-add-to-cart">
+                    <form asp-action="index" asp-controller="Home" asp-route-id="@item.ProdId" method="post">
+                        <button class="btn btn-primary">Add To Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<!--
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+-->
